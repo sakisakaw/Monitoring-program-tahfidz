@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Monitoring Hafalan</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand-mark">MH</div>
+      <div>
+        <p class="eyebrow">KALKULATOR PROGRES</p>
+        <h1>Monitoring Hafalan</h1>
+        <p class="subtitle">Pantau target dan gambaran waktu khatam hafalan.</p>
+      </div>
+    </header>
+
+    <section class="panel input-panel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">DATA SANTRI</p>
+          <h2>Masukkan progres hafalan</h2>
+        </div>
+        <span class="tag">Mushaf {{ total_halaman }} halaman</span>
+      </div>
+
+      <form id="form-hafalan">
+        <div class="form-grid">
+          <label>
+            <span>Nama santri</span>
+            <input id="nama" name="nama" type="text" maxlength="80"
+                   placeholder="Contoh: Ahmad" autocomplete="off" required>
+          </label>
+          <label>
+            <span>Halaman terakhir</span>
+            <input id="halaman" name="halaman" type="number" min="0"
+                   max="{{ total_halaman }}" step="1" placeholder="Contoh: 276" required>
+            <small>Masukkan angka {{ 0 }}–{{ total_halaman }}.</small>
+          </label>
+        </div>
+        <div class="actions">
+          <button class="button primary" type="submit" id="submit-btn">Hitung target <span>→</span></button>
+          <button class="button secondary" type="button" id="reset-btn">Bersihkan</button>
+        </div>
+        <p class="status" id="status" aria-live="polite">Data hanya digunakan untuk perhitungan ini.</p>
+      </form>
+    </section>
+
+    <section id="hasil" class="results hidden" aria-live="polite">
+      <div class="result-heading">
+        <div>
+          <p class="eyebrow">HASIL PERHITUNGAN</p>
+          <h2 id="nama-hasil">—</h2>
+        </div>
+        <span class="page-pill" id="halaman-hasil">—</span>
+      </div>
+
+      <div class="stats-grid">
+        <article class="stat-card">
+          <p>Sisa halaman</p>
+          <strong id="sisa-hasil">—</strong>
+          <span>halaman menuju khatam</span>
+        </article>
+        <article class="stat-card accent">
+          <p>Target minimal</p>
+          <strong id="minimal-hasil">—</strong>
+          <span>halaman setiap pekan</span>
+        </article>
+      </div>
+
+      <section class="panel table-panel">
+        <div class="section-heading compact">
+          <div>
+            <p class="eyebrow">SIMULASI</p>
+            <h2>Gambaran waktu khatam</h2>
+          </div>
+          <span class="tag" id="target-label">{{ target_pekan }} pekan · {{ tanggal_target }}</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Kecepatan</th><th>Total pekan</th><th>Perkiraan waktu</th></tr>
+            </thead>
+            <tbody id="tabel-simulasi"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="motivation" id="panel-motivasi">
+        <div class="motivation-icon" id="ikon-motivasi">✦</div>
+        <div>
+          <p class="eyebrow">PESAN MOTIVASI</p>
+          <h2 id="judul-motivasi">—</h2>
+          <p id="pesan-motivasi">—</p>
+        </div>
+      </section>
+    </section>
+
+    <footer>
+      <span>Monitoring Hafalan</span>
+      <span>Tidak menyimpan data santri</span>
+    </footer>
+  </main>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
